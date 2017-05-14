@@ -3,6 +3,7 @@ package io.swagger.repository;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
@@ -47,9 +48,9 @@ public class UsuarioRepository {
 		return this;
 	}
 	
-	public Usuario findUsuario(Usuario usuario) {
+	public Usuario findUsuario(UUID id) {
 		for(Usuario usuarioCadastrado:this.usuarios) {
-			if (usuarioCadastrado.getId().equals(usuario.getId())) {
+			if (usuarioCadastrado.getId().equals(id)) {
 				return usuarioCadastrado;
 			}
 		}

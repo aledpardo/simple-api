@@ -27,10 +27,10 @@ public class CadastroService implements Cadastro {
 	@Override
 	public Usuario addUser(DadosUsuario dadosUsuario) throws ApiException {
 		if ((dadosUsuario == null)
-				|| (dadosUsuario.getName() == null || dadosUsuario.getName().equals(Constants.EMPTY))
-				|| (dadosUsuario.getEmail() == null || dadosUsuario.getEmail().equals(Constants.EMPTY))
-				|| (dadosUsuario.getPassword() == null || dadosUsuario.getPassword().equals(Constants.EMPTY))
-				|| (dadosUsuario.getPhones() == null || dadosUsuario.getPhones().isEmpty())) {
+		||  (dadosUsuario.getName() == null || dadosUsuario.getName().equals(Constants.EMPTY))
+		||  (dadosUsuario.getEmail() == null || dadosUsuario.getEmail().equals(Constants.EMPTY))
+		||  (dadosUsuario.getPassword() == null || dadosUsuario.getPassword().equals(Constants.EMPTY))
+		||  (dadosUsuario.getPhones() == null || dadosUsuario.getPhones().isEmpty())) {
 			throw new ApiException(HttpStatus.BAD_REQUEST.value(), DADOS_INVALIDOS);
 		}
 		
@@ -45,6 +45,17 @@ public class CadastroService implements Cadastro {
 				.apiKey(UUID.randomUUID());
 		
 		this.usuarioRepository.addUsuario(usuario);
+		
+		return usuario;
+	}
+
+	@Override
+	public Usuario userProfile(UUID id) throws ApiException {
+		Usuario usuario = this.usuarioRepository.findUsuario(id);
+		
+		if (usuario == null) {
+			throw new ApiException(HttpStatus.NOT_FOUND.value(), Constants.USUARIO_NAO_ENCONTRADO);
+		}
 		
 		return usuario;
 	}

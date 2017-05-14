@@ -1,6 +1,6 @@
 package io.swagger.api;
 
-import io.swagger.model.InlineResponse200;
+import io.swagger.model.Usuario;
 import io.swagger.model.InlineResponse400;
 import java.util.UUID;
 
@@ -22,19 +22,20 @@ import javax.validation.constraints.*;
 @Api(value = "perfil", description = "the perfil API")
 public interface PerfilApi {
 
-    @ApiOperation(value = "Retorna os dados do usuário", notes = "Returns a single pet", response = InlineResponse200.class, authorizations = {
+    @ApiOperation(value = "Retorna os dados do usuário", notes = "Retorna o usuário com o UUID fornecido", response = Usuario.class, authorizations = {
         @Authorization(value = "api_key")
     }, tags={ "perfil", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Usuário encontrado", response = InlineResponse200.class),
-        @ApiResponse(code = 400, message = "UUID inválido", response = InlineResponse200.class),
-        @ApiResponse(code = 401, message = "Não autorizado", response = InlineResponse200.class),
-        @ApiResponse(code = 403, message = "Sessão expirada", response = InlineResponse200.class),
-        @ApiResponse(code = 404, message = "Usuário não encontrado", response = InlineResponse200.class) })
+        @ApiResponse(code = 200, message = "Usuário encontrado", response = Usuario.class),
+        @ApiResponse(code = 400, message = "UUID inválido", response = Usuario.class),
+        @ApiResponse(code = 401, message = "Não autorizado", response = Usuario.class),
+        @ApiResponse(code = 403, message = "Sessão expirada", response = Usuario.class),
+        @ApiResponse(code = 404, message = "Usuário não encontrado", response = Usuario.class) })
     @RequestMapping(value = "/perfil/{userUuid}",
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.GET)
-    ResponseEntity<InlineResponse200> perfilUsuario(@ApiParam(value = "UUID do usuário",required=true ) @PathVariable("userUuid") UUID userUuid);
+    ResponseEntity<Usuario> perfilUsuario(@ApiParam(value = "API Key do usuário") @RequestHeader("api_key") UUID apiKey,
+    		@ApiParam(value = "UUID do usuário",required=true ) @PathVariable("userUuid") UUID userUuid);
 
 }
