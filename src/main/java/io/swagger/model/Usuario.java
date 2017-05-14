@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.model.InlineResponse200UserData;
+import io.swagger.model.DadosUsuario;
 import java.util.UUID;
 import org.joda.time.DateTime;
 import javax.validation.constraints.*;
@@ -31,7 +31,7 @@ public class Usuario   {
   private UUID apiKey = null;
 
   @JsonProperty("user_data")
-  private InlineResponse200UserData userData = null;
+  private DadosUsuario dadosUsuario = null;
 
   public Usuario id(UUID id) {
     this.id = id;
@@ -123,22 +123,22 @@ public class Usuario   {
     this.apiKey = apiKey;
   }
 
-  public Usuario userData(InlineResponse200UserData userData) {
-    this.userData = userData;
+  public Usuario dadosUsuario(DadosUsuario dadosUsuario) {
+    this.dadosUsuario = dadosUsuario;
     return this;
   }
 
    /**
-   * Get userData
-   * @return userData
+   * Get dadosUsuario
+   * @return dadosUsuario
   **/
   @ApiModelProperty(value = "")
-  public InlineResponse200UserData getUserData() {
-    return userData;
+  public DadosUsuario getDadosUsuario() {
+    return dadosUsuario;
   }
 
-  public void setUserData(InlineResponse200UserData userData) {
-    this.userData = userData;
+  public void setDadosUsuario(DadosUsuario dadosUsuario) {
+    this.dadosUsuario = dadosUsuario;
   }
 
 
@@ -156,12 +156,12 @@ public class Usuario   {
         Objects.equals(this.modified, usuario.modified) &&
         Objects.equals(this.lastLogin, usuario.lastLogin) &&
         Objects.equals(this.apiKey, usuario.apiKey) &&
-        Objects.equals(this.userData, usuario.userData);
+        Objects.equals(this.dadosUsuario, usuario.dadosUsuario);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, created, modified, lastLogin, apiKey, userData);
+    return Objects.hash(id, created, modified, lastLogin, apiKey, dadosUsuario);
   }
 
   @Override
@@ -174,7 +174,7 @@ public class Usuario   {
     sb.append("    modified: ").append(toIndentedString(modified)).append("\n");
     sb.append("    lastLogin: ").append(toIndentedString(lastLogin)).append("\n");
     sb.append("    apiKey: ").append(toIndentedString(apiKey)).append("\n");
-    sb.append("    userData: ").append(toIndentedString(userData)).append("\n");
+    sb.append("    dadosUsuario: ").append(toIndentedString(dadosUsuario)).append("\n");
     sb.append("}");
     return sb.toString();
   }
