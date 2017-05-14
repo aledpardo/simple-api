@@ -13,7 +13,7 @@ import javax.validation.constraints.*;
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2017-05-13T22:59:20.852Z")
 
-public class DadosUsuario   {
+public class DadosUsuario implements Cloneable  {
   @JsonProperty("name")
   private String name = null;
 
@@ -146,6 +146,22 @@ public class DadosUsuario   {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
+  }
+  
+  public DadosUsuario clone() {
+	  DadosUsuario destino = new DadosUsuario()
+			  .email(email)
+			  .name(name)
+			  .password(password)
+			  .phones(new ArrayList<Phone>());
+	  
+	  if (phones != null && !phones.isEmpty()) {
+		  for (Phone phone:phones) {
+			  destino.addPhonesItem(phone.clone());
+		  }
+	  }
+	  
+	  return destino;
   }
 }
 

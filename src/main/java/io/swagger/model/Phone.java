@@ -4,7 +4,7 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
-public class Phone extends BaseModel {
+public class Phone extends BaseModel implements Cloneable {
 
 	@JsonProperty("number")
 	private String number = null;
@@ -76,5 +76,11 @@ public class Phone extends BaseModel {
 		sb.append("    ddd: ").append(toIndentedString(ddd)).append("\n");
 		sb.append("}");
 		return sb.toString();
+	}
+	
+	public Phone clone() {
+		return new Phone()
+				.number(number)
+				.ddd(ddd);
 	}
 }

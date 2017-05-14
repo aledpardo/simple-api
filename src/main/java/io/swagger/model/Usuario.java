@@ -14,7 +14,7 @@ import javax.validation.constraints.*;
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2017-05-13T22:59:20.852Z")
 
-public class Usuario   {
+public class Usuario implements Cloneable  {
   @JsonProperty("id")
   private UUID id = null;
 
@@ -188,6 +188,20 @@ public class Usuario   {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
+  }
+
+  public Usuario clone() {
+	  return new Usuario()
+			  .id(id)
+			  .apiKey(apiKey)
+			  .created(created)
+			  .modified(modified)
+			  .lastLogin(lastLogin)
+			  .dadosUsuario(
+					  dadosUsuario == null 
+			  		  ? null 
+					  : dadosUsuario.clone()
+			  );
   }
 }
 
