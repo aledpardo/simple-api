@@ -1,20 +1,28 @@
 package io.swagger.service;
 
-import java.util.Date;
 import java.util.UUID;
 
 import org.joda.time.DateTime;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import io.swagger.api.ApiException;
 import io.swagger.model.Constants;
 import io.swagger.model.Usuario;
+import io.swagger.repository.UsuarioRepository;
 import io.swagger.model.DadosUsuario;
 
 @Service
 public class CadastroService implements Cadastro {
 
 	private static final String DADOS_INVALIDOS = "Verifique os dados. Todos os campos são requeridos.";
+	
+	private final UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	public CadastroService(UsuarioRepository usuarioRepository) {
+		this.usuarioRepository = usuarioRepository;
+	}
 	
 	@Override
 	public Usuario addUser(DadosUsuario dadosUsuario) throws ApiException {
@@ -28,13 +36,16 @@ public class CadastroService implements Cadastro {
 		
 		DateTime now = new DateTime();
 		
-		return new Usuario()
+		Usuario usuario = new Usuario()
 				.dadosUsuario(dadosUsuario)
 				.id(UUID.randomUUID())
 				.created(now)
 				.modified(now)
 				.lastLogin(now)
 				.apiKey(UUID.randomUUID());
+		
+		this.usuarioRepository.addUsuario(usuario);
+		
+		return usuario;
 	}
-
 }

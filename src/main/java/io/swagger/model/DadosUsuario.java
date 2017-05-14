@@ -24,7 +24,7 @@ public class DadosUsuario   {
   private String password = null;
 
   @JsonProperty("phones")
-  private List<String> phones = new ArrayList<String>();
+  private List<Phone> phones = new ArrayList<Phone>();
 
   public DadosUsuario name(String name) {
     this.name = name;
@@ -80,12 +80,12 @@ public class DadosUsuario   {
     this.password = password;
   }
 
-  public DadosUsuario phones(List<String> phones) {
+  public DadosUsuario phones(List<Phone> phones) {
     this.phones = phones;
     return this;
   }
 
-  public DadosUsuario addPhonesItem(String phonesItem) {
+  public DadosUsuario addPhonesItem(Phone phonesItem) {
     this.phones.add(phonesItem);
     return this;
   }
@@ -95,11 +95,11 @@ public class DadosUsuario   {
    * @return phones
   **/
   @ApiModelProperty(value = "")
-  public List<String> getPhones() {
+  public List<Phone> getPhones() {
     return phones;
   }
 
-  public void setPhones(List<String> phones) {
+  public void setPhones(List<Phone> phones) {
     this.phones = phones;
   }
 
