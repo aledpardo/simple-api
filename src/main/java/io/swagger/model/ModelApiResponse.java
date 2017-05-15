@@ -12,32 +12,12 @@ import javax.validation.constraints.*;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2017-05-13T22:59:20.852Z")
 
 public class ModelApiResponse   {
-  @JsonProperty("code")
-  private Integer code = null;
+  @JsonProperty("mensagem")
+  private String mensagem = null;
 
-  @JsonProperty("message")
-  private String message = null;
 
-  public ModelApiResponse code(Integer code) {
-    this.code = code;
-    return this;
-  }
-
-   /**
-   * Get code
-   * @return code
-  **/
-  @ApiModelProperty(value = "")
-  public Integer getCode() {
-    return code;
-  }
-
-  public void setCode(Integer code) {
-    this.code = code;
-  }
-
-  public ModelApiResponse message(String message) {
-    this.message = message;
+  public ModelApiResponse mensagem(String mensagem) {
+    this.mensagem = mensagem;
     return this;
   }
 
@@ -46,12 +26,12 @@ public class ModelApiResponse   {
    * @return message
   **/
   @ApiModelProperty(value = "")
-  public String getMessage() {
-    return message;
+  public String getMensagem() {
+    return mensagem;
   }
 
-  public void setMessage(String message) {
-    this.message = message;
+  public void setMensagem(String mensagem) {
+    this.mensagem = mensagem;
   }
 
 
@@ -64,13 +44,12 @@ public class ModelApiResponse   {
       return false;
     }
     ModelApiResponse _apiResponse = (ModelApiResponse) o;
-    return Objects.equals(this.code, _apiResponse.code) &&
-        Objects.equals(this.message, _apiResponse.message);
+    return Objects.equals(this.mensagem, _apiResponse.mensagem);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, message);
+    return Objects.hash(mensagem);
   }
 
   @Override
@@ -78,8 +57,7 @@ public class ModelApiResponse   {
     StringBuilder sb = new StringBuilder();
     sb.append("class ModelApiResponse {\n");
     
-    sb.append("    code: ").append(toIndentedString(code)).append("\n");
-    sb.append("    message: ").append(toIndentedString(message)).append("\n");
+    sb.append("    message: ").append(toIndentedString(mensagem)).append("\n");
     sb.append("}");
     return sb.toString();
   }

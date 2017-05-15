@@ -30,14 +30,12 @@ public class LoginApiController implements LoginApi {
 			return new ResponseEntity<Usuario>(this.loginService.loginUser(login), HttpStatus.OK);
 		} catch (ApiException e) {
 			ModelApiResponse response = new ModelApiResponse()
-					.code(e.getCode())
-					.message(e.getMessage());
+					.mensagem(e.getMessage());
 
 			return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
 		} catch (Exception e) {
 			ModelApiResponse response = new ModelApiResponse()
-					.code(HttpStatus.INTERNAL_SERVER_ERROR.value())
-					.message(Constants.ERRO_DESCONHECIDO + " " + e.getMessage());
+					.mensagem(Constants.ERRO_DESCONHECIDO + " " + e.getMessage());
 
 			return new ResponseEntity(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
