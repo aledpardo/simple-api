@@ -10,5 +10,5 @@ public interface Cadastro {
 
 	Usuario addUser(DadosUsuario dadosUsuario) throws ApiException;
 	
-	Usuario userProfile(UUID id) throws ApiException;
+	Usuario userProfile(UUID apiKey, UUID id) throws ApiException;
 }

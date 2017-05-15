@@ -27,7 +27,7 @@ public class LoginService implements Login {
 		// Validações triviais
 		if (login == null
 				|| login.getEmail() == null || login.getEmail().length() == 0
-				|| Validacao.isValidEmailAddress(login.getEmail())
+				|| Validacao.EmailInvalido(login.getEmail())
 				|| login.getPassword() == null || login.getPassword().length() == 0) {
 			throw new ApiException(HttpStatus.BAD_REQUEST.value(), Constants.EMPTY);
 		}

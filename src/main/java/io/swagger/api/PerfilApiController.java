@@ -33,13 +33,13 @@ public class PerfilApiController implements PerfilApi {
     public ResponseEntity<Usuario> perfilUsuario(@ApiParam(value = "API Key do usuário", required=true) @RequestHeader("api_key") UUID apiKey,
     		@ApiParam(value = "UUID do usuário", required=true ) @PathVariable("userUuid") UUID userUuid) {
     	try {
-            return new ResponseEntity<Usuario>(this.cadastroService.userProfile(userUuid), HttpStatus.OK);
+    		return new ResponseEntity<Usuario>(this.cadastroService.userProfile(apiKey, userUuid), HttpStatus.OK);
 		} catch (ApiException e) {
 			ModelApiResponse response = new ModelApiResponse()
 					.code(e.getCode())
 					.message(e.getMessage());
 
-			return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity(response, HttpStatus.valueOf(e.getCode()));
 		} catch (Exception e) {
 			ModelApiResponse response = new ModelApiResponse()
 					.code(HttpStatus.INTERNAL_SERVER_ERROR.value())

@@ -6,13 +6,13 @@ import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
 import io.swagger.api.ApiException;
 import io.swagger.crypto.Password;
 import io.swagger.model.Constants;
 import io.swagger.model.DadosUsuario;
-import io.swagger.model.Usuario;
 import io.swagger.model.Login;
-import io.swagger.repository.CadastroRepository;
+import io.swagger.model.Usuario;
 import io.swagger.util.Validacao;
 
 @Service
@@ -30,7 +30,7 @@ public class CadastroService implements Cadastro {
 		if ((dadosUsuario == null)
 		||  (dadosUsuario.getName() == null || dadosUsuario.getName().equals(Constants.EMPTY))
 		||  (dadosUsuario.getEmail() == null || dadosUsuario.getEmail().equals(Constants.EMPTY))
-		||  Validacao.isValidEmailAddress(dadosUsuario.getEmail())
+		||  Validacao.EmailInvalido(dadosUsuario.getEmail())
 		||  (dadosUsuario.getPassword() == null || dadosUsuario.getPassword().equals(Constants.EMPTY))
 		||  (dadosUsuario.getPhones() == null || dadosUsuario.getPhones().isEmpty())) {
 			throw new ApiException(HttpStatus.BAD_REQUEST.value(), Constants.DADOS_INVALIDOS);
@@ -61,7 +61,7 @@ public class CadastroService implements Cadastro {
 				.id(UUID.randomUUID())
 				.created(now)
 				.modified(now)
-				.lastLogin(now)
+				.lastLogin(null)
 				.apiKey(UUID.randomUUID()); 
 		
 		this.cadastroRepository.addUsuario(usuario);
@@ -75,13 +75,28 @@ public class CadastroService implements Cadastro {
 	}
 
 	@Override
-	public Usuario userProfile(UUID id) throws ApiException {
-		Usuario usuario = this.cadastroRepository.findUsuario(id);
+	public Usuario userProfile(UUID apiKey, UUID id) throws ApiException {
+		Usuario usuarioApiKey = this.cadastroRepository.findApiKey(apiKey);
 		
-		if (usuario == null) {
-			throw new ApiException(HttpStatus.NOT_FOUND.value(), Constants.USUARIO_NAO_ENCONTRADO);
+		if (usuarioApiKey == null) {
+			throw new ApiException(HttpStatus.UNAUTHORIZED.value(), Constants.NAO_AUTORIZADO);
 		}
 		
-		return usuario;
+		Usuario usuario = this.cadastroRepository.findUsuario(id);
+		
+		if (usuario == null || !usuario.getApiKey().equals(apiKey)) {
+			throw new ApiException(HttpStatus.UNAUTHORIZED.value(), Constants.NAO_AUTORIZADO);
+		}
+		
+		if (usuario.getLastLogin() == null || usuario.getLastLogin().isBefore(new DateTime().plusMinutes(-Constants.TRINTA_MINUTOS))) {
+			throw new ApiException(HttpStatus.FORBIDDEN.value(), Constants.SESSAO_EXPIRADA);
+		}
+		
+		Usuario retorno = usuario.clone();
+		
+		// Remove do retorno o hash do password
+		retorno.getDadosUsuario().password(null);
+		
+		return retorno;
 	}
 }

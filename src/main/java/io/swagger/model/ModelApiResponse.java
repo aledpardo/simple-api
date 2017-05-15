@@ -15,9 +15,6 @@ public class ModelApiResponse   {
   @JsonProperty("code")
   private Integer code = null;
 
-  @JsonProperty("type")
-  private String type = null;
-
   @JsonProperty("message")
   private String message = null;
 
@@ -37,24 +34,6 @@ public class ModelApiResponse   {
 
   public void setCode(Integer code) {
     this.code = code;
-  }
-
-  public ModelApiResponse type(String type) {
-    this.type = type;
-    return this;
-  }
-
-   /**
-   * Get type
-   * @return type
-  **/
-  @ApiModelProperty(value = "")
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
   }
 
   public ModelApiResponse message(String message) {
@@ -86,13 +65,12 @@ public class ModelApiResponse   {
     }
     ModelApiResponse _apiResponse = (ModelApiResponse) o;
     return Objects.equals(this.code, _apiResponse.code) &&
-        Objects.equals(this.type, _apiResponse.type) &&
         Objects.equals(this.message, _apiResponse.message);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, type, message);
+    return Objects.hash(code, message);
   }
 
   @Override
@@ -101,7 +79,6 @@ public class ModelApiResponse   {
     sb.append("class ModelApiResponse {\n");
     
     sb.append("    code: ").append(toIndentedString(code)).append("\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("}");
     return sb.toString();

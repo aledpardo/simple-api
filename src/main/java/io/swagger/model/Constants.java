@@ -11,4 +11,9 @@ public class Constants {
 	public static final String USUARIO_SENHA_INVALIDOS = "Usuário e/ou senha inválidos";
 	public static final String USUARIO_NAO_ENCONTRADO = "Usuário não encontrado";
 
+	public static final int TRINTA_MINUTOS = 1;
+
+	public static final String NAO_AUTORIZADO = "Não autorizado";
+	public static final String SESSAO_EXPIRADA = "Sessão expirada";
+
 }
